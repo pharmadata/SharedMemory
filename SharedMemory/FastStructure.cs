@@ -24,7 +24,6 @@
 //   "Fast IPC Communication Using Shared Memory and InterlockedCompareExchange"
 //   http://www.codeproject.com/Articles/14740/Fast-IPC-Communication-Using-Shared-Memory-and-Int
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -391,11 +390,11 @@ namespace SharedMemory
             return (StructureToPtrDelegate)methodWrite.CreateDelegate(typeof(StructureToPtrDelegate));
         }
 
-        private static void CheckTypeCompatibility(Type t, System.Collections.Generic.HashSet<Type> checkedItems = null)
+        private static void CheckTypeCompatibility(Type t, System.Collections.Generic.List<Type> checkedItems = null)
         {
             if (checkedItems == null)
             {
-                checkedItems = new System.Collections.Generic.HashSet<Type>();
+                checkedItems = new System.Collections.Generic.List<Type>();
                 checkedItems.Add(typeof(char));
                 checkedItems.Add(typeof(byte));
                 checkedItems.Add(typeof(sbyte));

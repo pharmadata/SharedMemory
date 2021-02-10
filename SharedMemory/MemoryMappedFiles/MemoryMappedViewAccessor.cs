@@ -27,7 +27,6 @@ using Microsoft.Win32.SafeHandles;
 using SharedMemory;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
@@ -95,12 +94,10 @@ namespace System.IO.MemoryMappedFiles
             FastStructure.StructureToPtr<T>(ref structure, (IntPtr)ptr);
         }
 
-        internal unsafe void Write<T>(long position, ref T structure)
+        public unsafe void Write<T>(long position, ref T structure)
             where T: struct
         {
             uint elementSize = (uint)Marshal.SizeOf(typeof(T));
-            if (position > this._view.Size - elementSize)
-                throw new ArgumentOutOfRangeException("position", "");
 
             try
             {
@@ -115,13 +112,10 @@ namespace System.IO.MemoryMappedFiles
             }
         }
 
-        internal unsafe void WriteArray<T>(long position, T[] buffer, int index, int count)
+        public unsafe void WriteArray<T>(long position, T[] buffer, int index, int count)
             where T : struct
         {
             uint elementSize = (uint)Marshal.SizeOf(typeof(T));
-
-            if (position > this._view.Size - (elementSize * count))
-                throw new ArgumentOutOfRangeException("position");
             
             try
             {
@@ -142,12 +136,10 @@ namespace System.IO.MemoryMappedFiles
             }
         }
 
-        internal unsafe void Read<T>(long position, out T structure)
+        public unsafe void Read<T>(long position, out T structure)
             where T: struct
         {
             uint size = (uint)Marshal.SizeOf(typeof(T));
-            if (position > this._view.Size - size)
-                throw new ArgumentOutOfRangeException("position", "");
             try
             {
                 byte* ptr = null;
@@ -161,15 +153,13 @@ namespace System.IO.MemoryMappedFiles
             }
         }
 
-        internal unsafe void ReadArray<T>(long position, T[] buffer, int index, int count)
+        public unsafe void ReadArray<T>(long position, T[] buffer, int index, int count)
             where T : struct
         {
             uint elementSize = (uint)FastStructure.SizeOf<T>();
 
             if (buffer == null)
                 throw new ArgumentNullException("buffer");
-            if (position > this._view.Size - (elementSize * count))
-                throw new ArgumentOutOfRangeException("position");
             try
             {
                 byte* ptr = null;

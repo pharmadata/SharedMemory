@@ -25,7 +25,6 @@
 //   http://www.codeproject.com/Articles/14740/Fast-IPC-Communication-Using-Shared-Memory-and-Int
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace System.IO.MemoryMappedFiles

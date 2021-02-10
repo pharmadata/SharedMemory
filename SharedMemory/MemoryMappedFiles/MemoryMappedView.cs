@@ -27,7 +27,6 @@ using Microsoft.Win32.SafeHandles;
 using SharedMemory;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
@@ -116,7 +115,7 @@ namespace System.IO.MemoryMappedFiles
             // view, so determine how far into the view to set the pointer.
             long viewDelta = offset - fileMapStart;
 
-            SafeMemoryMappedViewHandle safeHandle = UnsafeNativeMethods.MapViewOfFile(safeMemoryMappedFileHandle, access.ToMapViewFileAccess(), (ulong)fileMapStart, new UIntPtr((ulong)mapViewSize));
+            SafeMemoryMappedViewHandle safeHandle = UnsafeNativeMethods.MapViewOfFile(safeMemoryMappedFileHandle, MemoryMappedFileAccessExtensions.ToMapViewFileAccess(access), (ulong)fileMapStart, new UIntPtr((ulong)mapViewSize));
             var lastWin32Error = Marshal.GetLastWin32Error();
             if (safeHandle.IsInvalid)
             {
